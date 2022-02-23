@@ -201,6 +201,11 @@ def get_from_cache(url, cache_dir=None):
         os.makedirs(cache_dir)
 
     # Get eTag to add to filename, if it exists.
+    try:
+        filename = {'https://s3.amazonaws.com/models.huggingface.co/biggan/biggan-deep-512-pytorch_model.bin':'07b5c0d1791fa2028f8aa458a36360f31e1549d44152c96579b3ad6b35055d34.c33e135ad91e13528d0b83edc3c53c7bf94f620bdf8bc2bf08be82ba6d602e62', 'https://s3.amazonaws.com/models.huggingface.co/biggan/biggan-deep-512-config.json':'a9937ab8377512e9f327212f707413ca6a17b09e3dbd9d2692c5bef9b901e695.7b1d5d2a369e67ee26e5d5c86a4dbdd49b097d4c9c44b887f92bee9fd679ed4a'}[url]
+    except:
+        from IPython import embed; embed()
+    '''
     if url.startswith("s3://"):
         etag = s3_etag(url)
     else:
@@ -211,6 +216,7 @@ def get_from_cache(url, cache_dir=None):
         etag = response.headers.get("ETag")
 
     filename = url_to_filename(url, etag)
+    '''
 
     # get cache path to put the file
     cache_path = os.path.join(cache_dir, filename)
